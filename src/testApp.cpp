@@ -20,6 +20,8 @@ void testApp::setup(){
     gui->addWidgetDown(new ofxUILabel("MIT 6.S080 Linkage studies by David Nunez", OFX_UI_FONT_LARGE));
     gui->addWidgetDown(new ofxUISlider("theta", 0.0f, 180.0f, 20.0f, 200.0f, 16.0f));
     gui->addWidgetDown(new ofxUISlider("stroke", 0.0f, 1000.0f, 500.0f, 200.0f, 16.0f));
+    gui->addWidgetDown(new ofxUISlider("a", 0.0f, 1000.0f, 270.0f, 200.0f, 16.0f));
+
     gui->addWidgetDown(new ofxUISlider("a1", 0.0f, 1000.0f, 270.0f, 200.0f, 16.0f));
     gui->addWidgetDown(new ofxUISlider("a2", 0.0f, 1000.0f, 270.0f, 200.0f, 16.0f));
 
@@ -166,6 +168,15 @@ void testApp::guiEvent(ofxUIEventArgs &e)
     {
         ofxUISlider *slider = (ofxUISlider *) e.widget;
         linkage.a2 = slider->getScaledValue();
+        
+    }
+    
+    if (e.widget->getName() == "a")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        linkage.a1 = slider->getScaledValue();
+        linkage.a2 = slider->getScaledValue();
+        
         
     }
 
