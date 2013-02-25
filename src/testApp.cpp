@@ -16,7 +16,7 @@ void testApp::setup(){
 
     
     // GUI Setup    
-    gui = new ofxUICanvas(0,0,320,320);
+    gui = new ofxUICanvas(30,30,320,320);
     gui->addWidgetDown(new ofxUILabel("6.S080 Linkage studies by David Nunez", OFX_UI_FONT_LARGE));
     gui->addWidgetDown(new ofxUISlider("theta", 0.0f, 180.0f, 20.0f, 200.0f, 16.0f));
     gui->addWidgetDown(new ofxUISlider("stroke", 0.0f, 1000.0f, 500.0f, 200.0f, 16.0f));
