@@ -3,7 +3,7 @@
 #include "ofMain.h"
 #include "ofxVectorGraphics.h"
 #include "ofxUI.h"
-
+#include "Link.h"
 class testApp : public ofBaseApp{
 
 	public:
