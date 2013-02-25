@@ -82,7 +82,7 @@ void testApp::draw(){
     s << "c: " << linkage.link1.c << '\n';
     
     
-    myfont.drawString(s.str(), 700,100);
+   // myfont.drawString(s.str(), 700,100);
     
 }
 
