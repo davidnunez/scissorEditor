@@ -2,7 +2,7 @@
 #include "ofxVectorGraphics.h"
 #include <string>
 
-ofVec2f c1,p1,p3,l1,l2;
+ofVec2f c1,p1,p3,l1,l2, l3, l4;
 float l1s;
 float theta;
 float strokeLength;
@@ -24,8 +24,19 @@ void testApp::setup(){
     c1.set(0, 0);
 
     strokeLength = 500;
+    a = 270.0f;
+
     myfont.loadFont("SourceCodePro-Regular.ttf", 12);
 
+    gui = new ofxUICanvas(0,0,320,320);
+    gui->addWidgetDown(new ofxUILabel("6.S080 Linkage studies by David Nunez", OFX_UI_FONT_LARGE));
+    
+    
+    gui->addWidgetDown(new ofxUISlider("theta", 0.0f, 180.0f, 20.0f, 200.0f, 16.0f));
+    gui->addWidgetDown(new ofxUISlider("stroke", 0.0f, 1000.0f, 500.0f, 200.0f, 16.0f));
+    gui->addWidgetDown(new ofxUISlider("a", 0.0f, 1000.0f, 270.0f, 200.0f, 16.0f));
+    ofAddListener(gui->newGUIEvent, this, &testApp::guiEvent);
+    gui->loadSettings("GUI/guiSettings.xml");
 }
 
 //--------------------------------------------------------------
@@ -44,7 +55,6 @@ void testApp::update(){
     
     
     //a = p1.distance(p3);
-    a = 270.0f;
     b = l1s;
     A = theta;
     
@@ -147,5 +157,39 @@ void testApp::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
+
+}
+
+
+void testApp::exit()
+{
+	gui->saveSettings("GUI/guiSettings.xml");
+    delete gui;
+}
+
+void testApp::guiEvent(ofxUIEventArgs &e)
+{
+    if(e.widget->getName() == "theta")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        theta = slider->getScaledValue();
+    }
+
+    if(e.widget->getName() == "stroke")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        strokeLength = slider->getScaledValue();
+    }
+
+    if(e.widget->getName() == "a")
+    {
+        ofxUISlider *slider = (ofxUISlider *) e.widget;
+        a = slider->getScaledValue();
+    }
+
+
+
+
+
 
 }

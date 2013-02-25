@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxVectorGraphics.h"
+#include "ofxUI.h"
 
 class testApp : public ofBaseApp{
 
@@ -20,6 +21,9 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-        ofxVectorGraphics output;
+        void exit();
+        void guiEvent(ofxUIEventArgs &e);
 
+        ofxVectorGraphics output;
+        ofxUICanvas *gui;
 };
