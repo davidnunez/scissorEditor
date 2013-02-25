@@ -63,7 +63,7 @@ void Link::draw() {
     
     output.line(u.x,u.y, midpointPerp.x, midpointPerp.y);
     
-    output.changeColor(0,255,0);
+    output.changeColor(255,255,255);
     output.line(l1.x,l1.y, midpointPerp.x, midpointPerp.y);
     output.line(l2.x,l2.y, midpointPerp.x, midpointPerp.y);
     

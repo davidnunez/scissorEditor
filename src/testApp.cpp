@@ -61,7 +61,8 @@ void testApp::draw(){
 	ofColor magenta = ofColor::fromHex(0xec008c);
 	ofColor yellow = ofColor::fromHex(0xffee00);
 	ofColor deepblue = ofColor::fromHex(0x1E134F);
-	ofBackgroundGradient(deepblue * 1, deepblue * 0.1);
+    ofColor lightSkin = ofColor::fromHex(0x484BA1);
+	ofBackgroundGradient(deepblue * 1, lightSkin * 0.7);
 
     ofPushMatrix();
     ofTranslate(500, 600);
