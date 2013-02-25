@@ -48,6 +48,7 @@ class Link {
     float i;
     float j;
     
+    float k;
     ofVec2f u;
     ofVec2f v;
     ofVec2f w;

@@ -43,19 +43,33 @@ void Link::update() {
     u.scale(a/2);
     u = u + l1;
     
-
+    k = a*tan(ofDegToRad(theta))/2;
 };
 void Link::draw() {
     
     
 
     
-    // DRAW LINKAGES
+    // DRAW pivot points on guide
     output.changeColor(1.0f, 1.0f, 1.0f);
     output.circle(l1.x, l1.y, 5);
     output.circle(l2.x, l2.y, 5);
+    
+    // draw midbpoint
     output.changeColor(255, 0, 0);
     output.circle(u.x,u.y, 3);
+
+    ofVec2f midpointPerp = (l2-l1).getPerpendicular().scale(k) + u;
+    
+    output.line(u.x,u.y, midpointPerp.x, midpointPerp.y);
+    
+    output.changeColor(0,255,0);
+    output.line(l1.x,l1.y, midpointPerp.x, midpointPerp.y);
+    output.line(l2.x,l2.y, midpointPerp.x, midpointPerp.y);
+    
+    
+    
+    // draw virtual link
     output.changeColor(1.0f, 1.0f, 1.0f);
     output.line(l1.x,l1.y, l2.x, l2.y);
     
