@@ -2,18 +2,25 @@
 #include "ofxVectorGraphics.h"
 #include <string>
 #include "Linkage.h"
-
+#include <vector>
+using namespace std;
 ofTrueTypeFont myfont;
 
-Linkage linkage;
-Linkage linkage2;
 
+vector<Linkage> linkages;
 
 //--------------------------------------------------------------
 void testApp::setup(){
     ofEnableSmoothing();
     myfont.loadFont("SourceCodePro-Regular.ttf", 12);
+    Linkage linkage;
 
+    linkage.strokeLength = 500.0f;
+    linkage.theta = 20.0f;
+    linkage.a1 = 270.0f;
+    linkage.a2 = 270.0f;
+    
+    linkages.push_back(linkage);
     
     // GUI Setup    
     gui = new ofxUICanvas(30,30,320,320);
@@ -27,31 +34,26 @@ void testApp::setup(){
 
     ofAddListener(gui->newGUIEvent, this, &testApp::guiEvent);
     gui->loadSettings("GUI/guiSettings.xml");
+
     
-    
-    linkage.strokeLength = 500.0f;
-    linkage.theta = 20.0f;
-    linkage.a1 = 270.0f;
-    linkage.a2 = 270.0f;
-    linkage2.strokeLength = linkage.strokeLength;
-    linkage2.theta = linkage.theta;
-    linkage2.a1 = linkage.a1;
-    linkage2.a2 = linkage.a2;
+   
+    cout << linkages.size();
     
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 
-    linkage2.strokeLength = linkage.strokeLength;
-    linkage2.theta = linkage.theta;
-    linkage2.a1 = linkage.a1;
-    linkage2.a2 = linkage.a2;
+    //linkage2.strokeLength = linkage.strokeLength;
+    //linkage2.theta = linkage.theta;
+    //linkage2.a1 = linkage.a1;
+    //linkage2.a2 = linkage.a2;
     
     
-    
-    linkage.update();
-    linkage2.update();
+    for (int i = 0; i < linkages.size(); i++) {
+        linkages[i].update();
+    }
+    //linkage2.update();
     
 }
 
@@ -66,21 +68,26 @@ void testApp::draw(){
 
     ofPushMatrix();
     ofTranslate(500, 600);
-    linkage.draw();
+    
+    for (int i = 0; i < linkages.size(); i++) {
+        linkages[i].draw();
+        ofRotate(linkages[i].theta);
+ 
+    }
+    
+ 
 
-
-    ofRotate(linkage.theta); //
 
     //linkage2.draw();
     ofPopMatrix();
-    std::stringstream s;
-    s << "theta: " << linkage.link1.theta << '\n';
-    s << "A: " << linkage.link1.A << '\n';
-    s << "B: " << linkage.link1.B << '\n';
-    s << "C: " << linkage.link1.C << '\n';
-    s << "a: " << linkage.link1.a << '\n';
-    s << "b: " << linkage.link1.b << '\n';
-    s << "c: " << linkage.link1.c << '\n';
+//    std::stringstream s;
+//    s << "theta: " << linkage.link1.theta << '\n';
+//    s << "A: " << linkage.link1.A << '\n';
+//    s << "B: " << linkage.link1.B << '\n';
+//    s << "C: " << linkage.link1.C << '\n';
+//    s << "a: " << linkage.link1.a << '\n';
+//    s << "b: " << linkage.link1.b << '\n';
+//    s << "c: " << linkage.link1.c << '\n';
     
     
    // myfont.drawString(s.str(), 700,100);
@@ -95,10 +102,20 @@ void testApp::keyPressed(int key){
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
     if (key == '-')  {
-        linkage.link1.theta -= 1;
+        //linkage.link1.theta -= 1;
+        linkages.pop_back();
     }
     if (key == '+') {
-       linkage.link1.theta += 1;
+        Linkage linkage2;
+        
+        linkage2.strokeLength = linkages[0].strokeLength;
+        linkage2.theta = linkages[0].theta;
+        linkage2.a1 = linkages[0].a1;
+        linkage2.a2 = linkages[0].a2;
+        
+        linkages.push_back(linkage2);
+    
+    
     }
 }
 
@@ -140,7 +157,7 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 
 void testApp::exit()
 {
-	gui->saveSettings("GUI/guiSettings.xml");
+	//gui->saveSettings("GUI/guiSettings.xml");
     delete gui;
 }
 
@@ -148,36 +165,54 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 {
     if(e.widget->getName() == "theta")
     {
+        
+        
         ofxUISlider *slider = (ofxUISlider *) e.widget;
-        linkage.theta = slider->getScaledValue();
+        
+        for (int i = 0; i < linkages.size(); i++) {
+
+            linkages[i].theta = slider->getScaledValue();
+        }
     }
 
     if(e.widget->getName() == "stroke")
     {
         ofxUISlider *slider = (ofxUISlider *) e.widget;
-        linkage.strokeLength = slider->getScaledValue();
-    }
+        for (int i = 0; i < linkages.size(); i++) {
 
+        linkages[i].strokeLength = slider->getScaledValue();
+
+        }
+    }
     if(e.widget->getName() == "a1")
     {
         ofxUISlider *slider = (ofxUISlider *) e.widget;
-        linkage.a1 = slider->getScaledValue();
+     
+        for (int i = 0; i < linkages.size(); i++) {
+
+            linkages[i].a1 = slider->getScaledValue();
+        }
 
     }
 
     if(e.widget->getName() == "a2")
     {
         ofxUISlider *slider = (ofxUISlider *) e.widget;
-        linkage.a2 = slider->getScaledValue();
+        for (int i = 0; i < linkages.size(); i++) {
+
+            linkages[i].a2 = slider->getScaledValue();
+        }
         
     }
     
     if (e.widget->getName() == "a")
     {
         ofxUISlider *slider = (ofxUISlider *) e.widget;
-        linkage.a1 = slider->getScaledValue();
-        linkage.a2 = slider->getScaledValue();
-        
+        for (int i = 0; i < linkages.size(); i++) {
+
+            linkages[i].a1 = slider->getScaledValue();
+            linkages[i].a2 = slider->getScaledValue();
+        }
         
     }
 
