@@ -8,7 +8,7 @@ ofTrueTypeFont myfont;
 
 
 vector<Linkage> linkages;
-
+int selectedLinkage = -1;
 //--------------------------------------------------------------
 void testApp::setup(){
     ofEnableSmoothing();
@@ -90,6 +90,7 @@ void testApp::draw(){
         s << "y:" << linkages[i].y << '\n';
         
     }
+    s << "Selected: " << selectedLinkage << '\n';
 //    s << "theta: " << linkage.link1.theta << '\n';
 //    s << "A: " << linkage.link1.A << '\n';
 //    s << "B: " << linkage.link1.B << '\n';
@@ -116,7 +117,8 @@ void testApp::keyReleased(int key){
     }
     if (key == '+') {
         Linkage linkage2;
-        
+        linkage2.x = linkages[0].x;
+        linkage2.y = linkages[0].y;
         linkage2.strokeLength = linkages[0].strokeLength;
         linkage2.theta = linkages[0].theta;
         linkage2.a1 = linkages[0].a1;
@@ -135,12 +137,19 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-
+    if (selectedLinkage != -1) {
+        linkages[selectedLinkage].x = x;
+        linkages[selectedLinkage].y = y;
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+    for (int i = 0; i < linkages.size(); i++) {
+        if (linkages[i].selected(x, y)) {
+            selectedLinkage = i;
+        }
+    }
 }
 
 //--------------------------------------------------------------

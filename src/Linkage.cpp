@@ -53,3 +53,8 @@ void Linkage::draw() {
     link2.draw();
 }
 
+bool Linkage::selected(float x2, float y2) {
+    cout << "ofdist: " << ofDist(x, y, x2, y2);
+    return ofDist(x, y, x2, y2) < 10;
+    
+}
