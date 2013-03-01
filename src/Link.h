@@ -17,9 +17,6 @@
 class Link {
     public:
 
-    float x;      // position
-    float y;
-    
     float force;
     float theta;
     float strokeLength;

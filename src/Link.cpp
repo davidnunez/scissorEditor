@@ -47,15 +47,15 @@ void Link::update() {
 };
 void Link::draw() {
     
-    
 
+    
     
     // DRAW pivot points on guide
     output.changeColor(1.0f, 1.0f, 1.0f);
     output.circle(l1.x, l1.y, 5);
     output.circle(l2.x, l2.y, 5);
     
-    // draw midbpoint
+    // draw midpoint
     output.changeColor(255, 0, 0);
     output.circle(u.x,u.y, 3);
 

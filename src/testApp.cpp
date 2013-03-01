@@ -19,7 +19,8 @@ void testApp::setup(){
     linkage.theta = 20.0f;
     linkage.a1 = 270.0f;
     linkage.a2 = 270.0f;
-    
+    linkage.x = 500.0f;
+    linkage.y = 400.0f;
     linkages.push_back(linkage);
     
     // GUI Setup    
@@ -66,21 +67,29 @@ void testApp::draw(){
     ofColor lightSkin = ofColor::fromHex(0x484BA1);
 	ofBackgroundGradient(deepblue * 1, lightSkin * 0.7);
 
-    ofPushMatrix();
-    ofTranslate(500, 600);
     
     for (int i = 0; i < linkages.size(); i++) {
+        ofPushMatrix();
+        ofTranslate(linkages[i].x, linkages[i].y);
+        ofRotate(linkages[i].theta*i);
+
         linkages[i].draw();
-        ofRotate(linkages[i].theta);
- 
+
+        ofPopMatrix();
+        
+        
     }
     
  
 
 
-    //linkage2.draw();
-    ofPopMatrix();
-//    std::stringstream s;
+    std::stringstream s;
+    s << "Linkages: " << linkages.size() << '\n';
+    for (int i = 0; i < linkages.size(); i++) {
+        s << "x:" << linkages[i].x;
+        s << "y:" << linkages[i].y << '\n';
+        
+    }
 //    s << "theta: " << linkage.link1.theta << '\n';
 //    s << "A: " << linkage.link1.A << '\n';
 //    s << "B: " << linkage.link1.B << '\n';
@@ -90,7 +99,7 @@ void testApp::draw(){
 //    s << "c: " << linkage.link1.c << '\n';
     
     
-   // myfont.drawString(s.str(), 700,100);
+   myfont.drawString(s.str(), 700,100);
     
 }
 
@@ -115,7 +124,7 @@ void testApp::keyReleased(int key){
         
         linkages.push_back(linkage2);
     
-    
+        
     }
 }
 
@@ -136,7 +145,7 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-
+    selectedLinkage = -1;
 }
 
 //--------------------------------------------------------------

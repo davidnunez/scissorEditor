@@ -22,12 +22,18 @@ public:
     float theta;
     float a1;
     float a2;
+    float x;
+    float y;
     
     Link link1;
     Link link2;
     void update();  // update method, used to refresh your objects properties
     void draw();    // draw method, this where you'll do the object's drawing
     Linkage();
+    bool selected(float x2, float y2);
+
+
+
 };
 
 

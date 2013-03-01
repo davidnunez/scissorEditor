@@ -15,7 +15,6 @@ Linkage::Linkage() {
 }
 
 void Linkage::update() {
-    
     force = sin(ofGetElapsedTimef()) * (strokeLength/2) + strokeLength/2;
     link1.force = force;
     link2.force = force;
@@ -37,14 +36,20 @@ void Linkage::update() {
 }
 
 void Linkage::draw() {
+    // origin point
+    output.noFill();
+    output.circle(0, 0, 5);
+    output.circle(0, 0, 10);
     
+    output.fill();
     
     // DRAW GUIDE
     output.changeColor(0.2f, 1.0f, 0.2f);
-    output.line(link1.x, link1.y, link1.s.x, link1.s.y);
-    output.line(link2.x, link2.y, link2.s.x, link2.s.y);
+    output.line(0, 0, link1.s.x, link1.s.y);
+    output.line(0, 0, link2.s.x, link2.s.y);
     
     
     link1.draw();
     link2.draw();
 }
+
